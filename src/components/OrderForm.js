@@ -23,6 +23,17 @@ export default function OrderForm(props){
         </div> */}
 
         <h2>Build Your Own Pizza</h2>
+
+            <label>Name 
+                    <input
+                        value={values.name}
+                        onChange={onInputChange}
+                        name='name'
+                        type='text'
+                        placeholder="Name for the order"
+                    />
+            </label>
+            
             <label>
                     <h3>Choice of Size</h3>
                     <p>Required</p>
