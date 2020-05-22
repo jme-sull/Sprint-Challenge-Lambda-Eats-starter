@@ -3,6 +3,9 @@ import OrderForm from './components/OrderForm.js';
 import Home from './components/Home.js';
 import { Route, Switch, Link } from 'react-router-dom';
 import axios from 'axios'
+import * as yup from 'yup'
+import formSchema from './validation/formSchema'
+
 
 
 const initialFormValues = {
@@ -23,9 +26,13 @@ const initialFormValues = {
   },
 }
 
-// const initalFormErrors = {
+const initalFormErrors = {
 
-// }
+  name: '',
+  size: '',
+  sauce: ''
+
+}
 
 const initalOrders = []
 
@@ -33,6 +40,7 @@ const App = () => {
 
   const [formValues, setFormValues ] = useState(initialFormValues)
   const [orders, addNewOrders] = useState(initalOrders)
+  const [ formErrors, setFormErrors ] = useState(initalFormErrors)
 
 
 
@@ -42,33 +50,26 @@ const App = () => {
     const name = evt.target.name
     const value = evt.target.value
 
-    setFormValues({
-      ...formValues,
-      [name]: value 
-    })
+    yup
+      .reach(formSchema, name)
+      .validate(value)
+      .then(valid => {
+        setFormErrors({
+          ...formErrors,
+          [name]: ''
+        })
+      })
+      .catch(err => {
+        setFormErrors({
+          ...formErrors,
+          [name]: err.errors[0]
+        })
+      })
 
-    // // 🔥 STEP 12- RUN VALIDATION WITH YUP
-    // yup
-    //   .reach(formSchema, name)
-    //   // we can then run validate using the value
-    //   .validate(value)
-    //   .then(valid => {
-    //     // happy path, we can clear the error message
-    //     setFormErrors({
-    //       ...formErrors,
-    //       [name]: ''
-    //     })
-    //   })
-    //   .catch(err => {
-    //     // sad path, does not validate so we set the error message to the message 
-    //     // returned from yup (that we created in our schema)
-    //     setFormErrors({
-    //       ...formErrors,
-    //       [name]: err.errors[0]
-    //     })
-    //   })
-
-    // Wether or not our validation was successful, we will still set the state to the new value as the user is typing
+      setFormValues({
+        ...formValues,
+        [name]: value 
+      })
    
   }
 
@@ -128,7 +129,7 @@ const App = () => {
     <Switch>
         <Route path='/pizza'> 
               <OrderForm values={formValues} onInputChange={onInputChange} onCheckboxChange={onCheckboxChange}
-              onSubmit={onSubmit} />
+              onSubmit={onSubmit} errors={formErrors} />
         </Route>
 
         <Route path='/'>

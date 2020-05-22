@@ -24,6 +24,12 @@ export default function OrderForm(props){
 
         <h2>Build Your Own Pizza</h2>
 
+        <div className='errors'>
+          <div>{errors.name}</div>
+          <div>{errors.size}</div>
+          <div>{errors.sauce}</div>
+        </div>
+
             <label>Name 
                     <input
                         value={values.name}
