@@ -5,6 +5,7 @@ import { Route, Switch, Link } from 'react-router-dom';
 import axios from 'axios'
 import * as yup from 'yup'
 import formSchema from './validation/formSchema'
+import Modal from 'react-bootstrap/Modal'
 
 
 
@@ -41,6 +42,9 @@ const App = () => {
   const [formValues, setFormValues ] = useState(initialFormValues)
   const [orders, addNewOrders] = useState(initalOrders)
   const [ formErrors, setFormErrors ] = useState(initalFormErrors)
+  const [modalShow, setModalShow] = useState(false);
+
+
 
 
 
@@ -128,8 +132,14 @@ const App = () => {
 
     <Switch>
         <Route path='/pizza'> 
-              <OrderForm values={formValues} onInputChange={onInputChange} onCheckboxChange={onCheckboxChange}
+
+            <Modal size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered> 
+              <OrderForm show={modalShow} values={formValues} onInputChange={onInputChange} onCheckboxChange={onCheckboxChange}
               onSubmit={onSubmit} errors={formErrors} />
+           </Modal>   
+        
         </Route>
 
         <Route path='/'>

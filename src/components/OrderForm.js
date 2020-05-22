@@ -1,4 +1,5 @@
 import React from 'react'
+import Modal from 'react-bootstrap/Modal'
 
 
 export default function OrderForm(props){
@@ -8,19 +9,18 @@ export default function OrderForm(props){
         values,
         onInputChange,
         onSubmit,
-        disabled,
         errors,
-        onCheckboxChange
+        onCheckboxChange,
+        show
     } = props
 
-    return (
+return (
+
+    <Modal size="lg"
+    aria-labelledby="contained-modal-title-vcenter"
+    centered> 
 
     <form className='form-container' onSubmit={onSubmit}>
-
-       {/* <h1>Build Your Own Pizza</h1>     
-        <div>
-            <img>image here</img>  
-        </div> */}
 
         <h2>Build Your Own Pizza</h2>
 
@@ -145,7 +145,9 @@ export default function OrderForm(props){
 
                 <button>Add to Order</button>
         
-    </form>
+            </form>
+
+        </Modal>
         
 
     )
