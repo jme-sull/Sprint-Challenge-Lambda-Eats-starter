@@ -33,7 +33,7 @@ export default function OrderForm(props){
                         placeholder="Name for the order"
                     />
             </label>
-            
+
             <label>
                     <h3>Choice of Size</h3>
                     <p>Required</p>
@@ -131,7 +131,7 @@ export default function OrderForm(props){
                         <input
                             value={values.special_instructions}
                             onChange={onInputChange}
-                            name='speical_instructions'
+                            name='special_instructions'
                             type='text'
                             placeholder="Anything else you'd like to add?"
                         />
